@@ -82,4 +82,4 @@ app.register_blueprint(user)
 app.register_blueprint(transactions)
 app.register_blueprint(item)
 
-app.run(port=1234, debug=True)
+app.run(port=3141, debug=True)
