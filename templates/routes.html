@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Espresso Debug</title>
+    <style>
+      body {
+        font-family: monospace;
+        padding: 2rem;
+      }
+      h1 {
+        font-size: 1.5rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin: 2rem 0 0.5rem;
+        border-bottom: 1px solid #333;
+        padding-bottom: 0.3rem;
+      }
+      h2 {
+        font-size: 0.85rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin: 2rem 0 0.5rem;
+        border-bottom: 1px solid #333;
+        padding-bottom: 0.3rem;
+      }
+      footer {
+        font-size: 0.85rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin: 2rem 0 0.5rem;
+        padding-bottom: 0.3rem;
+      }
+      .tree {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .tree li {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 0.4rem;
+      }
+      .path {
+        color: #79c0ff;
+        min-width: 260px;
+      }
+      .endpoint {
+        color: #888;
+        min-width: 180px;
+      }
+      .badge {
+        padding: 0.1rem 0.4rem;
+        font-size: 0.75rem;
+        font-weight: bold;
+      }
+      .GET {
+        background: #98c610;
+        color: white;
+      }
+      .POST {
+        background: #1283c4;
+        color: white;
+      }
+      .PUT {
+        background: #f68243;
+        color: white;
+      }
+      .DELETE {
+        background: #db654e;
+        color: white;
+      }
+      .PATCH {
+        background: #13f8f8;
+        color: black;
+      }
+      .HEAD, .OPTIONS {
+        background-image: linear-gradient(66deg, #e3e3e3 25%, #f0f0f0 25%, #f0f0f0 50%, #e3e3e3 50%, #e3e3e3 75%, #f0f0f0 75%, #f0f0f0 100%);
+        box-shadow: 0 0 3px gray;
+        background-size: 20px 20px;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Espresso Debug</h1>
+    <p>Espresso is an open-source POS server. You are in its debug menu. That means that whoever owns this server has not disabled debug mode.</p>
+    {% for prefix, routes in groups.items() %}
+    <h2>/ {{ prefix }}</h2>
+    <ul class="tree">
+      {% for resource in routes %}
+      <li>
+        <span class="path">{{ resource.path }}</span>
+        <span class="endpoint">{{ resource.endpoint }}</span>
+        <span>
+          {% for method in resource.methods %}
+          <span class="badge {{ method }}">{{ method }}</span>
+          {% endfor %}
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+    <br />
+    <p><span class="badge HEAD">HEAD</span> and <span class="badge OPTIONS">OPTIONS</span> are automatically added by Flask in debug mode. They can be safely ignored.</p>
+    <footer>© 2026 biitle.nl</footer>
+  </body>
+</html>
