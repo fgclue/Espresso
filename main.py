@@ -2,8 +2,13 @@ from flask import Flask, render_template
 from blueprints.user import user
 from blueprints.transaction import transactions
 from blueprints.item import item
+from models import db
+from decimal import *
+
+getcontext().prec = 3
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db"
 
 @app.route("/")
 def show_routes():
@@ -13,7 +18,7 @@ def show_routes():
 
     rules = sorted(app.url_map.iter_rules(), key=lambda r: r.rule)
     
-    METHOD_ORDER = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+    METHOD_ORDER = ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"]
 
     groups = {}
     for rule in rules:
@@ -32,5 +37,10 @@ def show_routes():
 app.register_blueprint(user)
 app.register_blueprint(transactions)
 app.register_blueprint(item)
+db.init_app(app)
 
-app.run(port=3141, debug=True)
+with app.app_context():
+    db.create_all()
+
+if __name__ == "__main__":
+    app.run(port=3141, debug=True)
