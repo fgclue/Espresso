@@ -7,8 +7,8 @@ def abc():
     return "HI"
 
 """
-item:        get, patch, put, delete
-user:        get, patch, put, delete
-transaction: get, patch, put, delete
-roles:       get, patch, put, delete
+item:        get, post, patch, delete
+user:        get, post, patch, delete
+transaction: get, post, patch, delete
+roles:       get, post, patch, delete
 """
