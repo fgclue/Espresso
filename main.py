@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from blueprints.user import user
+from blueprints.user import user, role
 from blueprints.transaction import transactions
 from blueprints.item import item
 from models import db
@@ -37,6 +37,7 @@ def show_routes():
 app.register_blueprint(user)
 app.register_blueprint(transactions)
 app.register_blueprint(item)
+app.register_blueprint(role)
 db.init_app(app)
 
 with app.app_context():
